@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.common.json",
+  "include": ["**/*"],
+  "exclude": [
+    "node_modules",
+    "_next",
+    ".output-test",
+    "**/*.e2e.spec.ts",
+    "**/e2e/**/*"
+  ]
+}
