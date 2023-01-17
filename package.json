@@ -1,0 +1,22 @@
+{
+  "name": "turbo-test",
+  "version": "1.0.0",
+  "description": "A turborepo test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvetere/turbo-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rvetere/turbo-test/issues"
+  },
+  "homepage": "https://github.com/rvetere/turbo-test#readme",
+  "dependencies": {
+    "turbo": "^1.7.0"
+  }
+}
