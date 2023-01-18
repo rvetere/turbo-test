@@ -3,7 +3,7 @@ import path from "path";
 import { getGitDiff } from "../gitChanges";
 
 const diff = getGitDiff();
-const { currentCommit } = diff;
+const { currentCommit, referenceCommit } = diff;
 
 const gitRoot = path.resolve(__dirname, "../../../../");
 // const args = process.argv.slice(2);
@@ -18,14 +18,11 @@ console.log(
   ")"
 );
 
-console.log({ referenceCommitHash, currentCommit });
+console.log({ referenceCommit, currentCommit });
 
 try {
-  console.log(
-    `Run turbo dry run with --filter='[${referenceCommitHash}...${currentCommit}]'`
-  );
-
-  const turboCommand = `turbo run build --filter='[${referenceCommitHash}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json`;
+  const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter='!@tools/git-affected-changes' --dry=json`;
+  console.log(turboCommand);
   const dryJsonStr = execSync(turboCommand, {
     cwd: gitRoot,
   });

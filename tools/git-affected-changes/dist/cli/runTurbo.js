@@ -7,17 +7,17 @@ const child_process_1 = require("child_process");
 const path_1 = __importDefault(require("path"));
 const gitChanges_1 = require("../gitChanges");
 const diff = (0, gitChanges_1.getGitDiff)();
-const { currentCommit } = diff;
+const { currentCommit, referenceCommit } = diff;
 const gitRoot = path_1.default.resolve(__dirname, "../../../../");
 // const args = process.argv.slice(2);
 const referenceCommitHash = (0, child_process_1.execSync)("git rev-parse origin/main")
     .toString()
     .trim();
 console.log("Run affected workspaces for origin/main (", referenceCommitHash, ")");
-console.log({ referenceCommitHash, currentCommit });
+console.log({ referenceCommit, currentCommit });
 try {
-    console.log(`Run turbo dry run with --filter='[${referenceCommitHash}...${currentCommit}]'`);
-    const turboCommand = `turbo run build --filter='[${referenceCommitHash}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json`;
+    const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter='!@tools/git-affected-changes' --dry=json`;
+    console.log(turboCommand);
     const dryJsonStr = (0, child_process_1.execSync)(turboCommand, {
         cwd: gitRoot,
     });
