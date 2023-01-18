@@ -10,10 +10,10 @@ const diff = (0, gitChanges_1.getGitDiff)();
 const { currentCommit, referenceCommit } = diff;
 const gitRoot = path_1.default.resolve(__dirname, "../../../../");
 // const args = process.argv.slice(2);
-const referenceCommitHash = (0, child_process_1.execSync)("git rev-parse origin/master")
+const referenceCommitHash = (0, child_process_1.execSync)("git rev-parse origin/main")
     .toString()
     .trim();
-console.log("Run affected workspaces for origin/master (", referenceCommitHash, ")");
+console.log("Run affected workspaces for origin/main (", referenceCommitHash, ")");
 try {
     const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --dry=json > ./.turbo-dry.json`;
     console.log({ turboCommand });

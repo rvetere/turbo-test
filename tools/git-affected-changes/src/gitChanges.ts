@@ -8,14 +8,14 @@ const execSyncTrimmed = (cmd: string) =>
 
 const getCommitsToCompare = () => {
   const headCommitId = execSyncTrimmed(`git rev-parse HEAD`);
-  const originCommitId = execSyncTrimmed(`git rev-parse origin/master`);
+  const originCommitId = execSyncTrimmed(`git rev-parse origin/main`);
 
-  // If origin/master is on the very same commit as HEAD
+  // If origin/main is on the very same commit as HEAD
   // pick the previous master commit
   const compareCommit =
     headCommitId !== originCommitId
       ? originCommitId
-      : execSyncTrimmed(`git rev-parse 'origin/master^'`);
+      : execSyncTrimmed(`git rev-parse 'origin/main^'`);
 
   return {
     currentCommit: headCommitId,

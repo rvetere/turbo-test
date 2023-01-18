@@ -12,7 +12,7 @@ const { currentCommit, referenceCommit, changes, nodeModules, message } = diff;
 console.log(
   `🕵️  git comparison\n
   commit "${message}"
-  head (${currentCommit}) vs origin/master (${referenceCommit})
+  head (${currentCommit}) vs origin/main (${referenceCommit})
 
   found ${changes.length} changed file${changes.length === 1 ? "" : "s"}${
     changes.length === 0 ? "." : ":\n  - " + changes.join("\n  - ")

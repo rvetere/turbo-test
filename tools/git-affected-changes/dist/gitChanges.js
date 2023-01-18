@@ -11,12 +11,12 @@ const js_yaml_1 = __importDefault(require("../dist/js-yaml"));
 const execSyncTrimmed = (cmd) => String((0, child_process_1.execSync)(cmd, { maxBuffer: 1024 * 1024 * 10 })).trim();
 const getCommitsToCompare = () => {
     const headCommitId = execSyncTrimmed(`git rev-parse HEAD`);
-    const originCommitId = execSyncTrimmed(`git rev-parse origin/master`);
-    // If origin/master is on the very same commit as HEAD
+    const originCommitId = execSyncTrimmed(`git rev-parse origin/main`);
+    // If origin/main is on the very same commit as HEAD
     // pick the previous master commit
     const compareCommit = headCommitId !== originCommitId
         ? originCommitId
-        : execSyncTrimmed(`git rev-parse 'origin/master^'`);
+        : execSyncTrimmed(`git rev-parse 'origin/main^'`);
     return {
         currentCommit: headCommitId,
         referenceCommit: compareCommit,

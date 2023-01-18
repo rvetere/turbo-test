@@ -11,12 +11,12 @@ const forceRunAllModules = [
   "@tools/eslint-plugin",
 ];
 
-const referenceCommitHash = execSync("git rev-parse origin/master")
+const referenceCommitHash = execSync("git rev-parse origin/main")
   .toString()
   .trim();
 
 console.log(
-  "Run affected workspaces for origin/master (",
+  "Run affected workspaces for origin/main (",
   referenceCommitHash,
   ")"
 );
