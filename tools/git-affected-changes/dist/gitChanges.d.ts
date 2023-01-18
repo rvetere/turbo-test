@@ -9,8 +9,6 @@ export declare const getGitDiff: () => {
     author: string;
     authorMail: string;
     message: string;
-    workSpaces: Record<string, string>;
-    nodeModules: Record<string, string>;
 };
 /**
  * Reads the `getGitDiff` result from disk for environments without git.
