@@ -1,7 +1,5 @@
 import { execSync } from "child_process";
 import { readFileSync } from "fs";
-// @ts-expect-error
-import Yaml from "../dist/js-yaml";
 
 const execSyncTrimmed = (cmd: string) =>
   String(execSync(cmd, { maxBuffer: 1024 * 1024 * 10 })).trim();
@@ -34,8 +32,6 @@ export const getGitDiff = (): {
   author: string;
   authorMail: string;
   message: string;
-  workSpaces: Record<string, string>;
-  nodeModules: Record<string, string>;
 } => {
   const { currentCommit, referenceCommit } = getCommitsToCompare();
 
@@ -44,10 +40,6 @@ export const getGitDiff = (): {
   );
   const changes = diff.split("\n").filter(Boolean);
   changes.sort();
-
-  const { nodeModules, workSpaces } = changes.includes("yarn.lock")
-    ? getYamlDiff(currentCommit, referenceCommit)
-    : { nodeModules: {}, workSpaces: {} };
 
   const message = execSyncTrimmed(`git  show -s --format=%s`);
   const author = execSyncTrimmed(`git  show -s --format=%an`);
@@ -66,8 +58,6 @@ export const getGitDiff = (): {
     author,
     authorMail,
     changes,
-    nodeModules,
-    workSpaces,
   };
 };
 
@@ -105,53 +95,4 @@ export const readGitDiff = (
       authorMail: "",
     };
   }
-};
-
-const getYamlDiff = (currentCommit: string, referenceCommit: string) => {
-  const fileName = "yarn.lock";
-  const currentLockFile = execSyncTrimmed(
-    `git show ${currentCommit}:${fileName}`
-  );
-  const previousLockFile = execSyncTrimmed(
-    `git show ${referenceCommit}:${fileName}`
-  );
-
-  const currentLock = Yaml.load(currentLockFile) as Record<
-    string,
-    { version: string }
-  >;
-  const previousLock = Yaml.load(previousLockFile) as Record<
-    string,
-    { version: string }
-  >;
-  const currentVersion = Object.keys(currentLock);
-  const previousVersion = Object.keys(previousLock);
-  /** New Workspace Module Version  */
-  const workSpaces: Record<string, string> = {};
-  /** New NPM Node Module Version  */
-  const nodeModules: Record<string, string> = {};
-  currentVersion.forEach((dependency) => {
-    if (previousVersion.includes(dependency)) {
-      return;
-    }
-    const [prefix, name, registry] =
-      dependency.match(/^(.[^@]+)@([^:]+)/) || [];
-
-    const version = currentLock[dependency].version;
-    const hadSameVersion = previousVersion.some(
-      (previousDependency) =>
-        previousDependency.startsWith(prefix) &&
-        version === previousLock[previousDependency].version
-    );
-    if (hadSameVersion) {
-      return;
-    }
-    if (registry === "workspace") {
-      workSpaces[name] = version;
-    } else {
-      nodeModules[name] = version;
-    }
-  });
-
-  return { nodeModules, workSpaces };
 };
