@@ -3,7 +3,7 @@ import path from "path";
 import { getGitDiff } from "../gitChanges";
 
 const diff = getGitDiff();
-const { currentCommit, referenceCommit } = diff;
+const { currentCommit } = diff;
 
 const gitRoot = path.resolve(__dirname, "../../../../");
 // const args = process.argv.slice(2);
@@ -18,12 +18,19 @@ console.log(
   ")"
 );
 
+console.log({ referenceCommitHash, currentCommit });
+
 try {
-  const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json`;
-  const dryJson = execSync(turboCommand, {
+  console.log(
+    `Run turbo dry run with --filter='[${referenceCommitHash}...${currentCommit}]'`
+  );
+
+  const turboCommand = `turbo run build --filter='[${referenceCommitHash}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json`;
+  const dryJsonStr = execSync(turboCommand, {
     cwd: gitRoot,
   });
-  console.log({ dryJson: dryJson.toString() });
+  const dryJson = JSON.parse(dryJsonStr.toString());
+  console.log({ dryJson });
 } catch (err: unknown) {
   if (err instanceof Error) {
     console.log("sdterr", String((err as Error & { stderr: string }).stderr));
