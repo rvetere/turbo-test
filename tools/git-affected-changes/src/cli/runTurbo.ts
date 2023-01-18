@@ -19,13 +19,11 @@ console.log(
 );
 
 try {
-  const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json > ./turbo-dry.json`;
-  console.log({ turboCommand });
-
+  const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json`;
   const dryJson = execSync(turboCommand, {
     cwd: gitRoot,
   });
-  console.log({ dryJson });
+  console.log({ dryJson: dryJson.toString() });
 } catch (err: unknown) {
   if (err instanceof Error) {
     console.log("sdterr", String((err as Error & { stderr: string }).stderr));

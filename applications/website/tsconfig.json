@@ -3,7 +3,7 @@
   "include": ["**/*"],
   "exclude": [
     "node_modules",
-    "_next",
+    ".next",
     ".output-test",
     "**/*.e2e.spec.ts",
     "**/e2e/**/*"
