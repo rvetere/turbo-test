@@ -25,7 +25,6 @@
     "runTurbo": "node ./dist/cli/runTurbo"
   },
   "devDependencies": {
-    "@tools/eslint-plugin": "workspace:*",
     "@types/jest": "29.2.5",
     "eslint": "8.32.0",
     "js-yaml": "4.1.0",

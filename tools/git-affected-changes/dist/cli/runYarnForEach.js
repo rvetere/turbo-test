@@ -13,10 +13,10 @@ const forceRunAllModules = [
     "@tools/git-affected-changes",
     "@tools/eslint-plugin",
 ];
-const referenceCommitHash = (0, child_process_1.execSync)("git rev-parse origin/master")
+const referenceCommitHash = (0, child_process_1.execSync)("git rev-parse origin/main")
     .toString()
     .trim();
-console.log("Run affected workspaces for origin/master (", referenceCommitHash, ")");
+console.log("Run affected workspaces for origin/main (", referenceCommitHash, ")");
 let runAllModules = false;
 try {
     const workspaces = (0, child_process_1.execSync)(`yarn workspaces list --since=${referenceCommitHash} -R --json`, {
