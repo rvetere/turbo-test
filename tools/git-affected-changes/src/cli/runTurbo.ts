@@ -19,7 +19,7 @@ console.log(
 );
 
 try {
-  const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json > ./.turbo-dry.json`;
+  const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json > ./turbo-dry.json`;
   console.log({ turboCommand });
 
   const dryJson = execSync(turboCommand, {
