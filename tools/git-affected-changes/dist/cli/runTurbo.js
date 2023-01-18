@@ -15,7 +15,7 @@ const referenceCommitHash = (0, child_process_1.execSync)("git rev-parse origin/
     .trim();
 console.log("Run affected workspaces for origin/main (", referenceCommitHash, ")");
 try {
-    const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --dry=json > ./.turbo-dry.json`;
+    const turboCommand = `turbo run build --filter='[${referenceCommit}...${currentCommit}]' --filter=!@tools/git-affected-changes --dry=json > ./.turbo-dry.json`;
     console.log({ turboCommand });
     const dryJson = (0, child_process_1.execSync)(turboCommand, {
         cwd: gitRoot,
