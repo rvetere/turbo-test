@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["_next/**"]
+      "outputs": [".next/**"]
     },
     "build:package": {
       "outputs": ["dist"]

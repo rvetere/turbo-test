@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "build": "turbo run --filter @applications/website build",
-    "dev": "yarn workspace @applications/website dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

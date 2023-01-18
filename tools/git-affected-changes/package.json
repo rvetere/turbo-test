@@ -13,19 +13,19 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint:js": "eslint \"src/**/*.{js,ts,tsx,mdx}\" --max-warnings=0",
-    "lint": "yarn lint:js --fix",
-    "lint:ci": "yarn lint:js",
+    "lint": "pnpm lint:js --fix",
+    "lint:ci": "pnpm lint:js",
     "generate:git-diff": "git-affected-changes",
     "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "build:package": "yarn prettier && yarn build:tsc && yarn build:copy-lib",
+    "build:package": "pnpm prettier && pnpm build:tsc",
     "build:tsc": "tsc --build tsconfig.build.json",
-    "build:copy-lib": "npx ncp ../../node_modules/js-yaml/dist dist/",
     "clean": "npx rimraf node_modules",
     "runChanged": "node ./dist/cli/runYarnForEach",
     "runTurbo": "node ./dist/cli/runTurbo"
   },
   "devDependencies": {
     "@types/jest": "29.2.5",
+    "@types/node": "18.11.18",
     "eslint": "8.32.0",
     "js-yaml": "4.1.0",
     "prettier": "2.8.3",

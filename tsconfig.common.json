@@ -43,5 +43,5 @@
       "@libs/*": ["libs/*"]
     }
   },
-  "exclude": ["node_modules", "_next", "**/*.e2e.spec.ts", "**/e2e/**/*"]
+  "exclude": ["node_modules", ".next", "**/*.e2e.spec.ts", "**/e2e/**/*"]
 }
