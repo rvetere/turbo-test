@@ -1,0 +1,6 @@
+packages:
+  # executable/launchable applications
+  - "applications/*"
+  # all packages in subdirs
+  - "libs/*"
+  - "tools/*"
