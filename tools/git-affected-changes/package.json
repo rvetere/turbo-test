@@ -1,0 +1,35 @@
+{
+  "name": "@tools/git-affected-changes",
+  "version": "1.0.23",
+  "private": true,
+  "description": "NextJs plugin to find all affected module files",
+  "author": "Infinity",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "bin": "./dist/cli/generateGitDiff.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "lint:js": "eslint \"src/**/*.{js,ts,tsx,mdx}\" --max-warnings=0",
+    "lint": "yarn lint:js --fix",
+    "lint:ci": "yarn lint:js",
+    "generate:git-diff": "git-affected-changes",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "build:package": "yarn prettier && yarn build:tsc && yarn build:copy-lib",
+    "build:tsc": "tsc --build tsconfig.build.json",
+    "build:copy-lib": "npx ncp ../../node_modules/js-yaml/dist dist/",
+    "clean": "npx rimraf node_modules",
+    "runChanged": "node ./dist/cli/runYarnForEach",
+    "runTurbo": "node ./dist/cli/runTurbo"
+  },
+  "devDependencies": {
+    "@tools/eslint-plugin": "workspace:*",
+    "@types/jest": "29.2.5",
+    "eslint": "8.32.0",
+    "js-yaml": "4.1.0",
+    "prettier": "2.8.3",
+    "typescript": "4.8.4"
+  }
+}
